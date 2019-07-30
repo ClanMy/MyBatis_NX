@@ -1,0 +1,107 @@
+/*背景颜色*/
+BorderPane {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #505150 0%, #232323 100%);
+}
+
+
+/*标题字体的颜色*/
+Label,
+RadioButton {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14px;
+}
+
+/*错误提示是*/
+Text {
+
+    -fx-fill: #ff4b48;
+    -fx-font-size: 12px;
+}
+
+/*登录成功提示*/
+#registrationSuccess {
+    -fx-text-fill: #3cda30;
+    -fx-font-size: 20px;
+    /*-fx-padding: 0 0 0 80;*/
+    /*-fx-font-weight: 250px;*/
+}
+
+/*输入框背景颜色*/
+TextField,
+PasswordField {
+    -fx-pref-height: 32px;
+    -fx-background-color: #76767600;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #7e7e7e;
+    -fx-text-fill: #c1c1c1;
+    -fx-font-size: 14px;
+}
+
+TextField:hover,
+PasswordField:hover {
+    -fx-background-color: #76767630;
+}
+TextField:focused,
+PasswordField:focused {
+    -fx-background-color: #76767630;
+}
+
+
+/*提交按钮*/
+.button {
+    /*-fx-pref-width: 250px;*/
+    /*-fx-pref-height: 30px;*/
+    -fx-background-color: linear-gradient(to right, #33E1E8, #3F65E0);
+    -fx-background-radius: 20px;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-opacity: 0.7;
+}
+
+.button:pressed {
+    -fx-opacity: 0.9;
+}
+
+/*列表视图*/
+#listView {
+    -fx-background-color: #494949;
+}
+
+/*列表里面的列表背景*/
+#listView .list-cell{
+    -fx-background-color: #3d3d3d;
+    -fx-text-fill: #ececec;
+    -fx-font-size: 14px;
+    -fx-padding: 5 0 5 20;
+}
+
+/*内容不为空状态*/
+#listView .list-cell:filled{
+    -fx-background-color: #3d3d3d;
+}
+/*索引为偶数列表颜色*/
+#listView .list-cell:even{
+    -fx-background-color: #3d3d3d95;
+}
+/*悬浮状态 (写在 不为空前 为空后面)*/
+#listView .list-cell:hover{
+    -fx-background-color: #757575;
+}
+/*内容为空状态*/
+#listView .list-cell:empty{
+    -fx-background-color: #3d3d3d30;
+}
+/*内容选中状态*/
+#listView .list-cell:selected{
+    -fx-background-color: #585858;
+}
+
+
+
+
+
+
+
+

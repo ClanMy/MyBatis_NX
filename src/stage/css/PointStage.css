@@ -1,0 +1,59 @@
+
+
+
+#border{
+
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #505150 0%, #232323 100%);
+}
+
+/*列表视图*/
+#listView {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #505150 0%, #232323 100%);
+}
+
+/*列表里面的列表背景*/
+#listView .list-cell{
+    -fx-background-color: #3d3d3d00;
+    -fx-text-fill: #ffffff80;
+    -fx-font-size: 15px;
+    -fx-padding: 5 20 5 20;
+
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #7e7e7e;
+
+}
+
+/*.Title {*/
+
+/*    -fx-text-fill: #000000;*/
+/*    -fx-font-size: 20px;*/
+/*    -fx-fill-width: 600px;*/
+
+/*}*/
+
+/*.firstLevelTitle{*/
+/*    -fx-text-fill: #000000;*/
+/*    -fx-font-size: 16px;*/
+/*    -fx-fill-width: 600px;*/
+
+/*}*/
+
+/*.secondaryTitle{*/
+
+/*    -fx-text-fill: #000000;*/
+/*    -fx-font-size: 14px;*/
+/*    !*-fx-fill-width: 600px;*!*/
+
+/*}*/
+
+/*.threeLevelHeading{*/
+
+/*    -fx-text-fill: #000000;*/
+/*    -fx-font-size: 12px;*/
+/*    !*-fx-fill-width: 600px;*!*/
+
+/*}*/
+
+
+
+
