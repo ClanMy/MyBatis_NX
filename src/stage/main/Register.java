@@ -15,9 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import stage.main.point.PointStage;
+import stage.utensil.AutoWriteData;
 import stage.utensil.OverAnimation;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -27,6 +29,8 @@ public class Register {
 
     //加载一个窗口
     private Stage stage = new Stage();
+    //配置文件
+    AutoWriteData autoWriteData = new AutoWriteData();
 
     //注册窗口
     void register() {
@@ -39,7 +43,7 @@ public class Register {
         //获取最新的一个版本说明
         Map<String, String> map1 = maps.get(0);
         //拼接版本号
-        String NX_caption = "NX_"+map1.get("updateTime")+"_build_"+map1.get("version");
+        String NX_caption = "NX_" + map1.get("updateTime") + "_build_" + map1.get("version");
 
         Label versionNumber = new Label(NX_caption);
         versionNumber.setPadding(new Insets(20, 0, 5, 10));
@@ -139,7 +143,7 @@ public class Register {
         vBox.getChildren().add(buttonVbox);
         vBox.getChildren().add(listView);
 
-        Scene scene = new Scene(border,420,680);
+        Scene scene = new Scene(border, 420, 680);
         //为场景引入Regiser的css
         scene.getStylesheets().addAll("stage/css/Regiser.css");
         stage.setScene(scene);
@@ -180,23 +184,14 @@ public class Register {
                 //调用查询数据库方法
                 tableList = new SelectTable().select(databaseInformation);
 
-                //记录方法
-                Properties prop = new Properties();
-                try {
-
-                    FileOutputStream oFile = new FileOutputStream("config/user.properties", false);
-//                    prop.setProperty(user, password);
-                    prop.setProperty("libraryURL", libraryURL);
-                    prop.setProperty("libraryName", libraryName);
-                    prop.setProperty("user", user);
-                    prop.setProperty("password", password);
-
-                    prop.store(oFile, null);
-                    oFile.close();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                //将要存入的数据放入Map集合中
+                Map<String, String> map = new HashMap<>();
+                map.put("libraryURL", libraryURL);
+                map.put("libraryName", libraryName);
+                map.put("user", user);
+                map.put("password", password);
+                //存入配置
+                autoWriteData.steWriteData(map, "user", "config");
             }
 
 
@@ -251,34 +246,11 @@ public class Register {
         });
 
         //自动写入 将记录的登录赋值给输入框功能
-        try {
-            Properties prop = new Properties();
-            if (new File("config/user.properties").exists()) {
-                InputStream in = new BufferedInputStream(new FileInputStream("config/user.properties"));
-                prop.load(in);
-
-                for (String key : prop.stringPropertyNames()) {
-
-                    if (key.equals("libraryURL")) {
-                        libraryURLField.setText(prop.getProperty(key));
-                    }
-                    if (key.equals("libraryName")) {
-                        libraryNameField.setText(prop.getProperty(key));
-                    }
-                    if (key.equals("user")) {
-                        userField.setText(prop.getProperty(key));
-                    }
-                    if (key.equals("password")) {
-                        passwordField.setText(prop.getProperty(key));
-                    }
-
-                }
-                in.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        Map<String, String> date = autoWriteData.getReadDate("user", "config");
+        libraryURLField.setText(date.get("libraryURL"));
+        libraryNameField.setText(date.get("libraryName"));
+        userField.setText(date.get("user"));
+        passwordField.setText(date.get("password"));
 
         //生成按钮
         submit.setOnAction(event -> {

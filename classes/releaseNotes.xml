@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <releaseNotes>
-1
+    <explanation version="0.2.2" updateTime="2019.08.26">
+        优化自动读写配置
+    </explanation>
     <explanation version="0.2.1" updateTime="2019.05.09">
         修复对低分辨率设备不友好的问题
     </explanation>
