@@ -18,6 +18,9 @@ public class AutoWriteData {
     private String properSuffix = ".properties";
     //要写入的文件
     private Map<String, String> dateMap;
+    //标题
+    private String properTitle;
+
 
     /**
      * 描述： 写入配置数据
@@ -25,9 +28,10 @@ public class AutoWriteData {
      * @param dateMap  写入文件的数据
      * @param propName 文件name
      */
-    public void steWriteData(Map<String, String> dateMap, String propName) {
+    public void steWriteData(Map<String, String> dateMap, String propName, String properTitle) {
         this.dateMap = dateMap;
         this.propName = propName;
+        this.properTitle = properTitle;
         //判断路径是否为空
         isResourcePath();
         writeDate();
@@ -40,11 +44,9 @@ public class AutoWriteData {
      * @param propName     文件name
      * @param resourcePath 保存路径
      */
-    public void steWriteData(Map<String, String> dateMap, String propName, String resourcePath) {
+    public void steWriteData(Map<String, String> dateMap, String propName, String resourcePath, String properTitle) {
         this.resourcePath = resourcePath;
-        //判断路径是否为空
-        isResourcePath();
-        this.steWriteData(dateMap, propName);
+        this.steWriteData(dateMap, propName, properTitle);
     }
 
     /**
@@ -68,15 +70,13 @@ public class AutoWriteData {
      */
     public Map<String, String> getReadDate(String propName, String resourcePath) {
         this.resourcePath = resourcePath;
-        //判断路径是否为空
-        isResourcePath();
         return getReadDate(propName);
     }
 
     /* 判断resourcePath路径是否为空 ，如果为空就设置默认值*/
     private void isResourcePath() {
         if (resourcePath == null)
-            this.resourcePath = "Resource";
+            this.resourcePath = "resource";
     }
 
     /**
@@ -84,18 +84,26 @@ public class AutoWriteData {
      */
     private void writeDate() {
         //拼接资源路径
-        String filePath = resourcePath + File.separator + propName + properSuffix;
+        String filePath = "." + File.separator + resourcePath + File.separator;
+        String filename = propName + properSuffix;
+
         FileOutputStream fileOutputStream = null;
         OutputStreamWriter outputStreamWriter = null;
         try {
+            //判断是否有这个目录如果没有就出创建
+            File file = new File(filePath);
+            if (file.exists() && file.isDirectory()) {
+                boolean mkdir = file.mkdir();
+                System.out.println(mkdir ? "创建成功" : "创建失败");
+            }
             //输出流（创建Properties文件）
-            fileOutputStream = new FileOutputStream(filePath, false);
+            fileOutputStream = new FileOutputStream(filePath + filename, false);
             //循环将数据存入properties对象中
             dateMap.forEach((key, value) -> properties.setProperty(key, value));
             //（输出流编写器）设置文件输入编码格式
             outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
             //将数据写入文件中
-            properties.store(outputStreamWriter, "文件标题头");
+            properties.store(outputStreamWriter, properTitle);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

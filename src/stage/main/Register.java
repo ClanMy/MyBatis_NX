@@ -191,7 +191,7 @@ public class Register {
                 map.put("user", user);
                 map.put("password", password);
                 //存入配置
-                autoWriteData.steWriteData(map, "user", "config");
+                autoWriteData.steWriteData(map, "user", "配置文件", "config");
             }
 
 
